@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>إضافة لاعب</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      padding: 20px;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+    }
+    a {
+      color: #00bcd4;
+      display: inline-block;
+      margin-top: 15px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>📝 إضافة لاعب جديد</h2>
+
+    <form id="playerForm">
+      <input type="text" id="name" placeholder="اسم اللاعب" required>
+      <select id="position" required>
+        <option value="">اختر المركز</option>
+        <option value="هجوم">هجوم</option>
+        <option value="وسط">وسط</option>
+        <option value="دفاع">دفاع</option>
+        <option value="حارس">حارس</option>
+      </select>
+      <select id="status" required>
+        <option value="online">متصل</option>
+        <option value="offline">غير متصل</option>
+      </select>
+      <input type="number" id="goals" placeholder="عدد الأهداف" min="0">
+      <input type="number" id="assists" placeholder="عدد التمريرات" min="0">
+      <input type="number" id="matches" placeholder="عدد المباريات" min="0">
+      <button type="submit">➕ إضافة اللاعب</button>
+    </form>
+
+    <a href="index.html">⬅ العودة للرئيسية</a>
+  </div>
+
+  <script>
+    document.getElementById('playerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const player = {
+        name: document.getElementById('name').value,
+        position: document.getElementById('position').value,
+        status: document.getElementById('status').value,
+        goals: Number(document.getElementById('goals').value),
+        assists: Number(document.getElementById('assists').value),
+        matches: Number(document.getElementById('matches').value),
+      };
+
+      let players = JSON.parse(localStorage.getItem('players')) || [];
+      players.push(player);
+      localStorage.setItem('players', JSON.stringify(players));
+
+      alert("✅ تم إضافة اللاعب بنجاح!");
+      document.getElementById('playerForm').reset();
+    });
+  </script>
+</body>
+</html>
